@@ -1,23 +1,23 @@
 package adfer.springapp.SpringWebApp.model;
 
 import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Publisher {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "publisher_id")
+    @SequenceGenerator(name="publisher_id",sequenceName="publisher_id_sequence", allocationSize=1)
     private Long id;
     private String name;
     private String addressLine;
     private String city;
     private String country;
     private int zipcode;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "publisher_id")
-    private Set<Book> books_publisher = new HashSet<>();
+    private Set<Book> books = new HashSet<>();
 
     public Publisher() {
     }
@@ -79,12 +79,12 @@ public class Publisher {
         this.zipcode = zipcode;
     }
 
-    public Set<Book> getBooks_publisher() {
-        return books_publisher;
+    public Set<Book> getBooks() {
+        return books;
     }
 
-    public void setBooks_publisher(Set<Book> books) {
-        this.books_publisher = books;
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
     //EQUALS AND HASH

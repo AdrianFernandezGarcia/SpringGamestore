@@ -1,16 +1,18 @@
 package adfer.springapp.SpringWebApp.model;
-import jakarta.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
+import jakarta.persistence.*;
 
 @Entity
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "author_id")
+    @SequenceGenerator(name="author_id",sequenceName="author_id_sequence", allocationSize=1)
     private Long id;
     private String firstName;
     private String lastName;
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private Set<Book> books = new HashSet<>();
     public Author(){
 

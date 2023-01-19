@@ -5,14 +5,15 @@ import java.util.Set;
 @Entity
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "book_id")
+    @SequenceGenerator(name="book_id",sequenceName="book_id_sequence", allocationSize=1)
     private Long id;
     private String title;
     private String isbn;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Publisher publisher;
     public Book() {
     }
