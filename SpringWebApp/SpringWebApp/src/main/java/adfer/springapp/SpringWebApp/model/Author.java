@@ -12,7 +12,7 @@ public class Author {
     private Long id;
     private String firstName;
     private String lastName;
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
     private Set<Book> books = new HashSet<>();
     public Author(){
 

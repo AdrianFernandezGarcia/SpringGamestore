@@ -7,15 +7,15 @@ import java.util.Set;
 @Entity
 public class Publisher {
     @Id
-    @GeneratedValue(generator = "publisher_id")
-    @SequenceGenerator(name="publisher_id",sequenceName="publisher_id_sequence", allocationSize=1)
+    @GeneratedValue(generator = "publisher")
+    @SequenceGenerator(name="publisher",sequenceName="publisher_id_sequence", allocationSize=1)
     private Long id;
     private String name;
     private String addressLine;
     private String city;
     private String country;
     private int zipcode;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id")
     private Set<Book> books = new HashSet<>();
 

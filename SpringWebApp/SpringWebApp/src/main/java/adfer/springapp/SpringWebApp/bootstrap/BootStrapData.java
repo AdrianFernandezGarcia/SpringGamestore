@@ -22,6 +22,8 @@ public class BootStrapData implements CommandLineRunner {
         this.publisherRepository = publisherRepository;
     }
 
+
+
     @Override
     public void run(String... args) throws Exception {
 
