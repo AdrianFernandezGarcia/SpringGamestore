@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Add new Book</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Add New Book</h1>
+<form th:action="@{/books/save}" th:object="${newBook}" method="post">
+
+    <p>Title: <input type="text" th:field="*{title}" /></p>
+    <p>ISBN: <input type="text" th:field="*{isbn}" /></p>
+
+    <label>Authors</label>
+    <th:block th:each="author : ${authorList}">
+        <div>
+            <input type="checkbox" th:field="*{authors}" th:value="${author.id}" th:text="${author.firstName}"/>
+        </div>
+    </th:block>
+    <label>Publisher</label>
+    <th:block th:each="publisher : ${publisherList}">
+        <div>
+            <input type="radio" th:field="*{publisher}" th:value="${publisher.id}" th:text="${publisher.name}"/>
+        </div>
+    </th:block>
+
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
