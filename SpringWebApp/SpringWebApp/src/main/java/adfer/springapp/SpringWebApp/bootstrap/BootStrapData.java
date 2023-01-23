@@ -1,24 +1,19 @@
 package adfer.springapp.SpringWebApp.bootstrap;
 
-import adfer.springapp.SpringWebApp.model.Author;
-import adfer.springapp.SpringWebApp.model.Book;
-import adfer.springapp.SpringWebApp.model.Publisher;
-import adfer.springapp.SpringWebApp.repositories.AuthorRepository;
-import adfer.springapp.SpringWebApp.repositories.BookRepository;
+import adfer.springapp.SpringWebApp.repositories.GameRepository;
+import adfer.springapp.SpringWebApp.repositories.PlatformRepository;
 import adfer.springapp.SpringWebApp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import java.util.Optional;
-import java.util.Scanner;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
-    private final AuthorRepository authorRepository;
-    private final BookRepository bookRepository;
+    private final PlatformRepository platformRepository;
+    private final GameRepository gameRepository;
     private final PublisherRepository publisherRepository;
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
-        this.authorRepository = authorRepository;
-        this.bookRepository = bookRepository;
+    public BootStrapData(PlatformRepository platformRepository, GameRepository gameRepository, PublisherRepository publisherRepository) {
+        this.platformRepository = platformRepository;
+        this.gameRepository = gameRepository;
         this.publisherRepository = publisherRepository;
     }
 
@@ -26,7 +21,7 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        /*
         boolean flag = true;
         int option;
         Scanner sc = new Scanner(System.in);
@@ -46,9 +41,9 @@ public class BootStrapData implements CommandLineRunner {
 
                      while(book_id >= 0){
                          System.out.println("Select one of the following authors: ");
-                         authorRepository.findAll().forEach(author -> {System.out.println(author.getId()+"-"+author.getFirstName());});
+                         platformRepository.findAll().forEach(author -> {System.out.println(author.getId()+"-"+author.getFirstName());});
                          book_id=sc.nextLong();
-                         Optional<Author> book_author = authorRepository.findById(book_id);
+                         Optional<Author> book_author = platformRepository.findById(book_id);
                          if(book_author.isPresent()){
                              if(!book.getAuthors().contains(book_author.get())){ //check first if the book is already added
                                  book_author.get().getBooks().add(book);
@@ -69,7 +64,7 @@ public class BootStrapData implements CommandLineRunner {
                      }
                      else System.out.println("The specified publisher does not exist");
 
-                     bookRepository.save(book);
+                     gameRepository.save(book);
                      break;
                  }
 
@@ -79,7 +74,7 @@ public class BootStrapData implements CommandLineRunner {
                      System.out.println("Please, write in the last name of the author");
                      String lastname = sc.nextLine();
                      Author author = new Author(firstname,lastname);
-                     authorRepository.save(author);
+                     platformRepository.save(author);
                      break;
                  }
 
@@ -95,5 +90,7 @@ public class BootStrapData implements CommandLineRunner {
                  }
              }
         }
+        */
+
     }
 }

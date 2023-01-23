@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link th:href="@{/styles/styles.css}" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8"/>
+  <title>Store List</title>
+</head>
+<body>
+<h1 th:text="'Store: ' + ${selectedStore.id}"> </h1>
+<h3 th:text="'City: ' + ${selectedStore.city}"></h3>
+<h3 th:text="'Country: ' + ${selectedStore.country}"></h3>
+<h3>Employees</h3>
+<table class="list">
+  <tr>
+    <th>ID</th>
+    <th>FirstName</th>
+    <th>LastName</th>
+    <th>Email</th>
+  </tr>
+  <tr th:each="employee : ${selectedStore.employees}">
+    <td th:text="${employee.id}"> </td>
+    <td th:text="${employee.firstname}"> </td>
+    <td th:text="${employee.lastname}"> </td>
+    <td th:text="${employee.email}"> </td>
+  </tr>
+</table>
+
+<a th:href="@{/stores/store/{id}/addEmployee(id=${selectedStore.id})}">Add new Employee</a>
+
+</body>
+</html>

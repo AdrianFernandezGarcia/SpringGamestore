@@ -1,32 +1,34 @@
 package adfer.springapp.SpringWebApp.model;
 
 import jakarta.persistence.*;
+
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Publisher {
+public class Store {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String addressLine;
+    private String address;
     private String city;
     private String country;
-    private int zipcode;
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "publisher_id")
-    private Set<Game> games = new HashSet<>();
-
-    public Publisher() {
+    @JoinColumn(name = "store_id")//Creates a column store_id in employee table
+    private Set<Employee> employees= new HashSet<>();
+    @ManyToMany(mappedBy = "stores",fetch = FetchType.LAZY)
+    private Set<Game> games= new HashSet<>();
+    public Store() {
     }
 
-    public Publisher(String name, String addressLine, String city, String country, int zipcode) {
-        this.name = name;
-        this.addressLine = addressLine;
+    public Store(String address, String city, String country, Set<Employee> employees, Set<Game> games) {
+        this.address = address;
         this.city = city;
         this.country = country;
-        this.zipcode = zipcode;
+        this.employees = employees;
+        this.games = games;
     }
 
     //GETTERS AND SETTERS
@@ -38,20 +40,12 @@ public class Publisher {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getAddress() {
+        return address;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddressLine() {
-        return addressLine;
-    }
-
-    public void setAddressLine(String addressLine) {
-        this.addressLine = addressLine;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCity() {
@@ -70,20 +64,20 @@ public class Publisher {
         this.country = country;
     }
 
-    public int getZipcode() {
-        return zipcode;
+    public Set<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setZipcode(int zipcode) {
-        this.zipcode = zipcode;
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 
     public Set<Game> getGames() {
         return games;
     }
 
-    public void setGames(Set<Game> books) {
-        this.games = books;
+    public void setGames(Set<Game> games) {
+        this.games = games;
     }
 
     //EQUALS AND HASH
@@ -92,9 +86,9 @@ public class Publisher {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Publisher publisher = (Publisher) o;
+        Store store = (Store) o;
 
-        return id != null ? id.equals(publisher.id) : publisher.id == null;
+        return Objects.equals(id, store.id);
     }
 
     @Override
@@ -103,13 +97,15 @@ public class Publisher {
     }
 
     //TO_STRING
-
     @Override
     public String toString() {
-        return "Publisher{" +
+        return "Store{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + addressLine + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", employees=" + employees +
+                ", games=" + games +
                 '}';
     }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/styles/styles.css}" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8"/>
+    <title>Author List</title>
+</head>
+<body>
+<h1>Platform List</h1>
+
+<table class="list">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Number of games</th>
+    </tr>
+    <tr th:each="platform : ${platforms}">
+        <td th:text="${platform.id}"> </td>
+        <td th:text="${platform.name}"> </td>
+        <td th:text="${#lists.size(platform.games)}"> </td>
+    </tr>
+</table>
+
+</body>
+</html>

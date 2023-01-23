@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Add new Publisher</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Add new Publisher</h1>
+
+<form th:action="@{/publishers/save}" th:object="${newPublisher}" method="post">
+
+    <p>Name:<input type="text" th:field="*{name}"></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

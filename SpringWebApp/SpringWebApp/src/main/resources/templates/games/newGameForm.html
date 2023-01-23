@@ -1,20 +1,19 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Add new Book</title>
+    <title>Add new Game</title>
     <meta charset="UTF-8"/>
 </head>
 <body>
-<h1>Add New Book</h1>
-<form th:action="@{/books/save}" th:object="${newBook}" method="post">
+<h1>Add New Game</h1>
+<form th:action="@{/games/save}" th:object="${newGame}" method="post">
 
     <p>Title: <input type="text" th:field="*{title}" /></p>
-    <p>ISBN: <input type="text" th:field="*{isbn}" /></p>
 
-    <label>Authors</label>
-    <th:block th:each="author : ${authorList}">
+    <label>Platforms</label>
+    <th:block th:each="platform : ${platformList}">
         <div>
-            <input type="checkbox" th:field="*{authors}" th:value="${author.id}" th:text="${author.firstName}"/>
+            <input type="checkbox" th:field="*{platforms}" th:value="${platform.id}" th:text="${platform.name}"/>
         </div>
     </th:block>
     <label>Publisher</label>

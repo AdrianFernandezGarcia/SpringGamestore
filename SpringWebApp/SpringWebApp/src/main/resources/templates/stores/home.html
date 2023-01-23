@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link th:href="@{/styles/styles.css}" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8"/>
+  <title>Store List</title>
+</head>
+<body>
+<h1>Store List</h1>
+
+<table class="list">
+  <tr>
+    <th>ID</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>Country</th>
+    <th>Employees</th>
+  </tr>
+  <tr th:each="store : ${storeList}" >
+    <td>
+      <a th:href="@{/stores/store/{id}(id=${store.id})}" th:text="${store.id}"></a>
+      <!-- Redirect to specific store page using <a> and a path containing variable {id} -->
+      <!-- Then setting it to the selected store id value -->
+    </td>
+    <td th:text="${store.address}" ></td>
+    <td th:text="${store.city}"> </td>
+    <td th:text="${store.country}"> </td>
+    <td th:text="${#lists.size(store.employees)}"> </td>
+  </tr>
+</table>
+<a th:href="@{/stores/addStore}">Save new Store</a>
+
+</body>
+</html>

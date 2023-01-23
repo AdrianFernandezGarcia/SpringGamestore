@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Add new Platform</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Add New Platform</h1>
+<form th:action="@{/platforms/save}" th:object="${newPlatform}" method="post">
+
+  <p>Name: <input type="text" th:field="*{name}" /></p>
+
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
