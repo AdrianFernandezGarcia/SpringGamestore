@@ -18,7 +18,7 @@ public class Store {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")//Creates a column store_id in employee table
     private Set<Employee> employees= new HashSet<>();
-    @ManyToMany(mappedBy = "stores",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "stores", fetch = FetchType.LAZY)
     private Set<Game> games= new HashSet<>();
     public Store() {
     }

@@ -12,6 +12,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private int stock;
     @ManyToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
     @ManyToMany(fetch = FetchType.LAZY)
@@ -24,8 +25,9 @@ public class Game {
     public Game() {
     }
 
-    public Game(String title, Publisher publisher, Set<Platform> platforms, Set<Store> stores) {
+    public Game(String title, int stock,Publisher publisher, Set<Platform> platforms, Set<Store> stores) {
         this.title = title;
+        this.stock = stock;
         this.publisher = publisher;
         this.platforms = platforms;
         this.stores = stores;
@@ -46,6 +48,14 @@ public class Game {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public Publisher getPublisher() {

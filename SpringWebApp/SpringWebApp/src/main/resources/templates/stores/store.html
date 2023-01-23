@@ -24,8 +24,20 @@
     <td th:text="${employee.email}"> </td>
   </tr>
 </table>
-
 <a th:href="@{/stores/store/{id}/addEmployee(id=${selectedStore.id})}">Add new Employee</a>
+<table class="list">
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Stock</th>
+  </tr>
+  <tr th:each="game : ${selectedStore.games}">
+    <td th:text="${game.id}"> </td>
+    <td th:text="${game.title}"> </td>
+    <td th:text="${game.stock}"> </td>
+  </tr>
+</table>
+<a th:href="@{/stores/store/{id}/addGame (id=${selectedStore.id})}">Add Game</a>
 
 </body>
 </html>
