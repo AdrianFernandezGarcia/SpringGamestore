@@ -34,7 +34,9 @@
   <tr th:each="game : ${selectedStore.games}">
     <td th:text="${game.id}"> </td>
     <td th:text="${game.title}"> </td>
-    <td th:text="${game.stock}"> </td>
+    <td th:each="stock : ${gameStocks}">
+      <p th:text="${stock}"> </p>
+    </td>
   </tr>
 </table>
 <a th:href="@{/stores/store/{id}/addGame (id=${selectedStore.id})}">Add Game</a>

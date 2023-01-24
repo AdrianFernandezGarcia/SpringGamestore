@@ -6,10 +6,9 @@
 </head>
 <body>
 <h1>Add New Game</h1>
-<form th:action="@{/stores/store/{id}/games/save (id=${selectedStore.id})}" th:object="${newGame}" method="post">
+<form th:action="@{/games/save}" th:object="${newGame}" method="post">
 
     <p>Title: <input type="text" th:field="*{title}" /></p>
-    <p>Initial Stock: <input type="number" th:field="*{stock}" /></p>
     <label>Platforms</label>
     <th:block th:each="platform : ${platformList}">
         <div>

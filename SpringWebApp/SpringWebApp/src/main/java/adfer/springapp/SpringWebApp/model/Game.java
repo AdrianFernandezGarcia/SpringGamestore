@@ -12,7 +12,10 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private int stock;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id")
+    private Set<Stock> stocks = new HashSet<>();
     @ManyToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
     @ManyToMany(fetch = FetchType.LAZY)
@@ -25,9 +28,9 @@ public class Game {
     public Game() {
     }
 
-    public Game(String title, int stock,Publisher publisher, Set<Platform> platforms, Set<Store> stores) {
+    public Game(String title, Set<Stock> stocks, Publisher publisher, Set<Platform> platforms, Set<Store> stores) {
         this.title = title;
-        this.stock = stock;
+        this.stocks = stocks;
         this.publisher = publisher;
         this.platforms = platforms;
         this.stores = stores;
@@ -50,12 +53,12 @@ public class Game {
         this.title = title;
     }
 
-    public int getStock() {
-        return stock;
+    public Set<Stock> getStocks() {
+        return stocks;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setStocks(Set<Stock> stocks) {
+        this.stocks = stocks;
     }
 
     public Publisher getPublisher() {

@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Add new Game</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Add game to store</h1>
+<form th:action="@{/stores/store/{id}/games/save (id=${selectedStore.id})}" method="post">
+  <p>Select a game:</p>
+  <select name="existingGames">
+    <option th:each="game : ${existingGames}" th:value="${game.id}" th:text="${game.title}"></option>
+  </select>
+  <p>Stock Units:<input type="text" th:field="*{stock.units}"></p>
+  <p><input type="submit" value="Add Game" /></p>
+</form>
+
+</body>
+</html>

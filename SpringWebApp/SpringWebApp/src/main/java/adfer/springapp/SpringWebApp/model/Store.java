@@ -16,6 +16,9 @@ public class Store {
     private String city;
     private String country;
     @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Set<Stock> stocks= new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")//Creates a column store_id in employee table
     private Set<Employee> employees= new HashSet<>();
     @ManyToMany(mappedBy = "stores", fetch = FetchType.LAZY)
@@ -23,10 +26,11 @@ public class Store {
     public Store() {
     }
 
-    public Store(String address, String city, String country, Set<Employee> employees, Set<Game> games) {
+    public Store(String address, String city, String country, Set<Stock> stocks, Set<Employee> employees, Set<Game> games) {
         this.address = address;
         this.city = city;
         this.country = country;
+        this.stocks = stocks;
         this.employees = employees;
         this.games = games;
     }
@@ -62,6 +66,14 @@ public class Store {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Set<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(Set<Stock> stocks) {
+        this.stocks = stocks;
     }
 
     public Set<Employee> getEmployees() {

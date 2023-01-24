@@ -1,11 +1,9 @@
 package adfer.springapp.SpringWebApp.controller;
 
 import adfer.springapp.SpringWebApp.model.Game;
+import adfer.springapp.SpringWebApp.model.Stock;
 import adfer.springapp.SpringWebApp.model.Store;
-import adfer.springapp.SpringWebApp.repositories.GameRepository;
-import adfer.springapp.SpringWebApp.repositories.PlatformRepository;
-import adfer.springapp.SpringWebApp.repositories.PublisherRepository;
-import adfer.springapp.SpringWebApp.repositories.StoreRepository;
+import adfer.springapp.SpringWebApp.repositories.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,37 +14,56 @@ public class GameController {
     private final PlatformRepository platformRepository;
     private final PublisherRepository publisherRepository;
     private final StoreRepository storeRepository;
-    public GameController(GameRepository gameRepository, PlatformRepository platformRepository, PublisherRepository publisherRepository, StoreRepository storeRepository) {
+    private final StockRepository stockRepository;
+    public GameController(GameRepository gameRepository, PlatformRepository platformRepository, PublisherRepository publisherRepository, StoreRepository storeRepository, StockRepository stockRepository) {
         this.gameRepository = gameRepository;
         this.platformRepository = platformRepository;
         this.publisherRepository = publisherRepository;
         this.storeRepository = storeRepository;
+        this.stockRepository = stockRepository;
     }
-
-    @GetMapping("/stores/store/{storeId}/games")
-    public String getGames(Model model,@PathVariable("storeId") Long storeId){
+    @GetMapping("/games")
+    public String getGames(Model model){
         model.addAttribute("games", gameRepository.findAll());
-        model.addAttribute("selectedStore",storeRepository.findById(storeId).get());
+
         return "games/list";
     }
 
-    @GetMapping (value = "/stores/store/{storeId}/addGame")
-    public String addGame(Model model, @PathVariable("storeId") Long storeId){
+    @GetMapping (value = "/games/addGame")
+    public String addGame(Model model){
         model.addAttribute("newGame", new Game());
-        model.addAttribute("selectedStore", storeRepository.findById(storeId).get());
         model.addAttribute("platformList", platformRepository.findAll());
         model.addAttribute("publisherList", publisherRepository.findAll());
         return "games/newGameForm";
     }
 
-    @PostMapping (value = "/stores/store/{storeId}/games/save")
-    public String saveGame(Game game,@PathVariable("storeId") Long storeId){
-        Store store = storeRepository.findById(storeId).get();
-        store.getGames().add(game);
-        game.getStores().add(store);
+    @PostMapping (value = "/games/save")
+    public String saveNewGame(Game game){
         gameRepository.save(game);
-        storeRepository.save(store);
-        return "redirect:/stores/store/"+storeId;
+        return "redirect:/games";
+    }
+
+    @GetMapping (value = "/stores/store/{storeId}/addGame")
+    public String showAddGameForm(Model model, @PathVariable("storeId") Long storeId){
+        model.addAttribute("existingGames", gameRepository.findAll());
+        model.addAttribute("selectedStore", storeRepository.findById(storeId).get());
+        model.addAttribute("stock", new Stock());
+        return "stores/addGameForm";
+    }
+    //Get the selected game with @ModelAttribute (mapping it to a Game object), adding into the store list and saving it.
+    @PostMapping (value = "/stores/store/{storeId}/games/save")
+    public String addGameToStore(@PathVariable("storeId") Long storeId, @ModelAttribute("existingGames") Game selectedGame,@ModelAttribute("stock") Stock selectedStock) {
+        Store selectedStore = storeRepository.findById(storeId).get();
+        selectedStock.setGame(selectedGame);
+        selectedStock.setStore(selectedStore);
+        stockRepository.save(selectedStock);
+        selectedGame.getStocks().add(selectedStock);
+        selectedStore.getStocks().add(selectedStock);
+        selectedStore.getGames().add(selectedGame);
+        selectedGame.getStores().add(selectedStore);
+        storeRepository.save(selectedStore);
+        gameRepository.save(selectedGame);
+        return "redirect:/stores/store/" + storeId;
     }
 
 }

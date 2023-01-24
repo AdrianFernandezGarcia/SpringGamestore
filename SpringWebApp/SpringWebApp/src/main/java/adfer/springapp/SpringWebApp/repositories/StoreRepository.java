@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface StoreRepository extends CrudRepository<Store,Long> {
-    @EntityGraph(attributePaths = {"games" ,"employees"})
+    @EntityGraph(attributePaths = {"games" ,"employees","stocks"})
     Optional<Store> findById(Long id);
 
 }
