@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface EmployeeRepository extends CrudRepository<Employee,Long> {
-    @EntityGraph("store")
+    @EntityGraph(attributePaths = {"store" ,"login"})
     Optional<Employee> findById(Long id);
 }

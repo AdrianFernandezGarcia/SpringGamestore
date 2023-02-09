@@ -6,6 +6,13 @@
   <title>Game List</title>
 </head>
 <body>
+<div class="nav">
+  <a th:href="@{/stores}">Stores</a>
+  <a th:href="@{/platforms}">Platforms</a>
+  <a th:href="@{/publishers}">Publishers</a>
+  <a th:href="@{/games}">Games</a>
+</div>
+
 <h1>Game List</h1>
 
 <table class="list">
@@ -21,6 +28,6 @@
   </tr>
 </table>
 
-<a th:href="@{/games/addGame}">Add new Game </a>
+<a class="button" th:href="@{/games/addGame}">Add new Game </a>
 </body>
 </html>

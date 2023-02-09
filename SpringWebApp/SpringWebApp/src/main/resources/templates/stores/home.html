@@ -6,6 +6,14 @@
   <title>Store List</title>
 </head>
 <body>
+
+<div class="nav">
+  <a th:href="@{/stores}">Stores</a>
+  <a th:href="@{/platforms}">Platforms</a>
+  <a th:href="@{/publishers}">Publishers</a>
+  <a th:href="@{/games}">Games</a>
+</div>
+
 <h1>Store List</h1>
 
 <table class="list">
@@ -28,7 +36,7 @@
     <td th:text="${#lists.size(store.employees)}"> </td>
   </tr>
 </table>
-<a th:href="@{/stores/addStore}">Save new Store</a>
+<a class="button" th:href="@{/stores/addStore}">Save new Store</a>
 
 </body>
 </html>

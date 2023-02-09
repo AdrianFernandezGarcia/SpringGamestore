@@ -16,11 +16,6 @@ public class PublisherController {
     }
 
     @GetMapping("/publishers")
-    public String homePublishers(){
-        return "publishers/publishers";
-    }
-
-    @GetMapping("/publishers/list")
     public String getPublishers(Model model){
         model.addAttribute("publisherList", publisherRepository.findAll());
         return "/publishers/list";
@@ -35,11 +30,6 @@ public class PublisherController {
     @PostMapping("/publishers/save")
     public String savePublisher(Publisher publisher){
         publisherRepository.save(publisher);
-        return "redirect:/publishers/list";
+        return "redirect:/publishers";
     }
-
-
 }
-
-
-

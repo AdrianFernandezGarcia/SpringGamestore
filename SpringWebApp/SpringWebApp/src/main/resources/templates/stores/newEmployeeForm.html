@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
+  <link th:href="@{/styles/styles.css}" rel="stylesheet" type="text/css" />
   <title>Add new Employee</title>
   <meta charset="UTF-8"/>
 </head>
@@ -10,7 +11,9 @@
 <form th:action="@{/stores/store/{id}/saveEmployee (id=${employee_store.id})}" th:object="${newEmployee}" method="post">
   <p>FirstName:<input type="text" th:field="*{firstname}"></p>
   <p>LastName:<input type="text" th:field="*{lastname}"></p>
-  <p>Email:<input type="text" th:field="*{email}"></p>
+  <select name="role">
+    <option th:each="r : ${roles}" th:field="*{role}" th:value="${r}" th:text="${r.name()}"></option>
+  </select>
   <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 </body>

@@ -15,12 +15,7 @@ public class PlatformController {
         this.platformRepository = platformRepository;
     }
 
-    @GetMapping("/platforms")
-    public String homePlatforms(){
-        return "platforms/platforms";
-    }
-
-    @GetMapping("/platforms/list")//path in localhost
+    @GetMapping("/platforms")//path in localhost
     public String getPlatform(Model model){
         model.addAttribute("platforms", platformRepository.findAll());
         return "platforms/list";
@@ -35,7 +30,7 @@ public class PlatformController {
     @PostMapping(value = "/platforms/save")
     public String savePlatform(Platform platform){
         platformRepository.save(platform);
-        return "redirect:/platforms/list";
+        return "redirect:/platforms";
     }
 
 

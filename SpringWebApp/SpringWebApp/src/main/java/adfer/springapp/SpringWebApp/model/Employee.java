@@ -6,23 +6,35 @@ import java.util.Objects;
 
 @Entity
 public class Employee {
+    public enum Role{
+        STAFF, MANAGER, ADMIN
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstname;
     private String lastname;
     private String email;
+    private String password;
+    @Enumerated(EnumType.ORDINAL)
+    private Role role;
     @ManyToOne(fetch = FetchType.LAZY)
     private Store store;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
+    private Login login;
 
     public Employee() {
     }
 
-    public Employee(String firstname, String lastname,String email, Store store) {
+
+    public Employee(String firstname, String lastname, String email, String password, Role role, Store store, Login login) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.email=email;
+        this.email = email;
+        this.password = password;
+        this.role = role;
         this.store = store;
+        this.login = login;
     }
 
     //GETTERS AND SETTERS
@@ -56,6 +68,30 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
     }
 
     public Store getStore() {

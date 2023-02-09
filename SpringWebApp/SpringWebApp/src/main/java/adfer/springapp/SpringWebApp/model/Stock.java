@@ -10,9 +10,9 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int units;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Store store;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Game game;
 
     public Stock() {
@@ -60,7 +60,7 @@ public class Stock {
 
         Stock stock = (Stock) o;
 
-        return Objects.equals(id, stock.id);
+        return Objects.equals(game.getId(), stock.game.getId()) && Objects.equals(store.getId(),stock.store.getId());
     }
 
     @Override

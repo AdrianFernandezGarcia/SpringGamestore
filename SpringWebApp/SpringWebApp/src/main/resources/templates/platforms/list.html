@@ -6,6 +6,13 @@
     <title>Author List</title>
 </head>
 <body>
+<div class="nav">
+    <a th:href="@{/stores}">Stores</a>
+    <a th:href="@{/platforms}">Platforms</a>
+    <a th:href="@{/publishers}">Publishers</a>
+    <a th:href="@{/games}">Games</a>
+</div>
+
 <h1>Platform List</h1>
 
 <table class="list">
@@ -20,6 +27,6 @@
         <td th:text="${#lists.size(platform.games)}"> </td>
     </tr>
 </table>
-
+<a class="button" th:href="@{/platforms/addPlatform}">Save new Platform</a>
 </body>
 </html>

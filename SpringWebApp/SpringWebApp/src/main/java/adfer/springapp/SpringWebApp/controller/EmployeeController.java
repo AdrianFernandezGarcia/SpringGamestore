@@ -22,6 +22,7 @@ public class EmployeeController {
     @GetMapping("stores/store/{id}/addEmployee")
     //{id} is the id of the store where the employee is going to be added
     public String showNewEmployeeForm(Model model, @PathVariable("id") Long id){
+        model.addAttribute("roles",Employee.Role.values());
         model.addAttribute("newEmployee", new Employee());
         model.addAttribute("employee_store", storeRepository.findById(id).get());
         return "stores/newEmployeeForm";
@@ -31,6 +32,8 @@ public class EmployeeController {
     //IMPORTANT: if u write 'id' on url it will detect that it´s the employee id instead of the store´s
     public String saveEmployee(Employee employee, @PathVariable("storeId") Long storeId){
         employee.setStore(storeRepository.findById(storeId).get());
+        employee.setEmail(employee.getFirstname().toLowerCase()+"."+employee.getLastname().toLowerCase()+"@gamestore.com");
+        employee.setPassword("gamestore"+ employee.getRole().name().toLowerCase());
         employeeRepository.save(employee);
         return"redirect:/stores/store/"+storeId;
     }

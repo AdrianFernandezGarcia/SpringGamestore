@@ -6,6 +6,14 @@
   <title>Publishers List</title>
 </head>
 <body>
+
+<div class="nav">
+  <a th:href="@{/stores}">Stores</a>
+  <a th:href="@{/platforms}">Platforms</a>
+  <a th:href="@{/publishers}">Publishers</a>
+  <a th:href="@{/games}">Games</a>
+</div>
+
 <h1>Publishers List</h1>
 
 <table class="list">
@@ -18,6 +26,6 @@
     <td th:text="${publisher.name}"> </td>
   </tr>
 </table>
-
+<a class="button" th:href="@{/publishers/addPublisher}">Save new Publisher</a>
 </body>
 </html>

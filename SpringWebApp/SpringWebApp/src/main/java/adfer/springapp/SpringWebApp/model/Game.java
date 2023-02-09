@@ -105,11 +105,6 @@ public class Game {
 
     @Override
     public String toString() {
-        return "Game{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", publisher=" + publisher +
-                ", platforms=" + platforms +
-                '}';
+        return "";
     }
 }

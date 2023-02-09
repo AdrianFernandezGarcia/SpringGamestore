@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
+    <link th:href="@{/styles/styles.css}" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8">
-    <title>Main Page</title>
-
+    <title>Title</title>
 </head>
 <body>
-<a th:href="@{/stores}">Stores</a>
-<a th:href="@{/platforms}">Platforms</a>
-<a th:href="@{/publishers}">Publishers</a>
-<a th:href="@{/games}">Publishers</a>
+<div class="nav">
+    <a th:href="@{/stores}">Stores</a>
+    <a th:href="@{/platforms}">Platforms</a>
+    <a th:href="@{/publishers}">Publishers</a>
+    <a th:href="@{/games}">Games</a>
+</div>
 </body>
 </html>
