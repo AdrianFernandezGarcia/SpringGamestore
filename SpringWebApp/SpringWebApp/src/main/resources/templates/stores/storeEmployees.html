@@ -6,23 +6,28 @@
     <title>Employees</title>
 </head>
 <body>
+<div class="nav" th:if="${currentEmployee != null}">
+    <span id="currentEmployee" th:text="${currentEmployee.firstname}"></span>
+</div>
 <h1>Employees</h1>
-<table class="list">
-    <tr>
-        <th>ID</th>
-        <th>FirstName</th>
-        <th>LastName</th>
-        <th>Email</th>
-        <th>Role</th>
-    </tr>
-    <tr th:each="employee : ${selectedStore.employees}">
-        <td th:text="${employee.id}"> </td>
-        <td th:text="${employee.firstname}"> </td>
-        <td th:text="${employee.lastname}"> </td>
-        <td th:text="${employee.email}"> </td>
-        <td th:text="${employee.role}"> </td>
-    </tr>
-</table>
-<a class="button" th:href="@{/stores/store/{id}/addEmployee(id=${selectedStore.id})}">Add new Employee</a>
+<div th:if="${selectedStore != null}">
+    <table class="list">
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+        <tr th:each="employee : ${selectedStore.employees}">
+            <td th:text="${employee.id}"> </td>
+            <td th:text="${employee.firstname}"> </td>
+            <td th:text="${employee.lastname}"> </td>
+            <td th:text="${employee.email}"> </td>
+            <td th:text="${employee.role}"> </td>
+        </tr>
+    </table>
+    <a class="button" th:href="@{/stores/store/{id}/addEmployee(id=${selectedStore.id})}">Add new Employee</a>
+</div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import adfer.springapp.SpringWebApp.repositories.LoginRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @Controller
@@ -20,12 +21,10 @@ public class LoginController {
         this.employeeRepository = employeeRepository;
         this.loginRepository = loginRepository;
     }
-
     @GetMapping("/login")
-    public String showLogin(){
+    public String redirectToLogin(){
         return "login";
     }
-
     @PostMapping("/login/get")
     public String getLogin(@RequestParam String email, @RequestParam String pass, HttpSession session){
         for (Employee employee : employeeRepository.findAll()) {
@@ -35,10 +34,10 @@ public class LoginController {
                 session.setAttribute("employee", employee);
                 initMap(employee);
                 session.setAttribute("pagesList",accessPages);
-                return "redirect:/";
             }
         }
-        return "redirect:/";
+
+        return "login";
     }
 
     /**
@@ -55,7 +54,7 @@ public class LoginController {
                 ,storesUrl + "/games", storesUrl + "/addGame",storesUrl + "/games/save"
                 ,storesUrl + "/employees", storesUrl + "/addEmployee",storesUrl + "/employees/save"};
 
-        String[] adminPages = { "/"
+        String[] adminPages = { "/index"
                 ,"/platforms","/platforms/addPlatform","/platforms/save"
                 ,"/games","/games/addGame","/games/save"
                 ,"/publishers","/publishers/addPublisher","/publishers/save"

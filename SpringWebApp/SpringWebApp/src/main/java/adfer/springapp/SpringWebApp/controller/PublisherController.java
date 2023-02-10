@@ -18,18 +18,21 @@ public class PublisherController {
     @GetMapping("/publishers")
     public String getPublishers(Model model){
         model.addAttribute("publisherList", publisherRepository.findAll());
+
         return "/publishers/list";
     }
 
     @GetMapping("/publishers/addPublisher")
     public String showNewPublisherForm(Model model){
         model.addAttribute("newPublisher", new Publisher());
+
         return "/publishers/newPublisherForm";
     }
 
     @PostMapping("/publishers/save")
     public String savePublisher(Publisher publisher){
         publisherRepository.save(publisher);
-        return "redirect:/publishers";
+
+        return "/publishers/list";
     }
 }

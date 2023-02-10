@@ -14,19 +14,22 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        
         HttpSession session = request.getSession();
         String currentUrl = request.getRequestURI();
 
         if(session.getAttribute("employee")!=null ){
             @SuppressWarnings("unchecked")
-            //The cast type is safe, as pagesList´s type is List<String>
+            //The cast type is safe, since pagesList´s type is List<String>
             List<String> accessPages= (List<String>) session.getAttribute("pagesList");
-            if (!accessPages.contains(currentUrl)) {
+            if (!response.isCommitted() && !accessPages.contains(currentUrl)) {
                 response.sendRedirect(accessPages.get(0));
             }
         }
         else{
-            if(!currentUrl.equals("/login"))response.sendRedirect("/login");
+            if(!response.isCommitted() && !currentUrl.equals("/login")){
+                response.sendRedirect("/login");
+            }
         }
 
     }

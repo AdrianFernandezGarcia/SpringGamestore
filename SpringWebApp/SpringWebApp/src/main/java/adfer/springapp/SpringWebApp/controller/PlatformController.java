@@ -18,19 +18,22 @@ public class PlatformController {
     @GetMapping("/platforms")//path in localhost
     public String getPlatform(Model model){
         model.addAttribute("platforms", platformRepository.findAll());
+
         return "platforms/list";
     }
 
     @GetMapping (value = "/platforms/addPlatform")
     public String addPlatform(Model model){
         model.addAttribute("newPlatform", new Platform());
+
         return "platforms/newPlatformForm";
     }
 
     @PostMapping(value = "/platforms/save")
     public String savePlatform(Platform platform){
         platformRepository.save(platform);
-        return "redirect:/platforms";
+
+        return "platforms/list";
     }
 
 

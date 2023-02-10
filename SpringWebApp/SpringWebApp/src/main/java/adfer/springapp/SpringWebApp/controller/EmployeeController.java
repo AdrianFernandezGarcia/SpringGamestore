@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+@SuppressWarnings("OptionalGetWithoutIsPresent")
 @Controller
 public class EmployeeController {
     private final EmployeeRepository employeeRepository;
@@ -35,6 +35,6 @@ public class EmployeeController {
         employee.setEmail(employee.getFirstname().toLowerCase()+"."+employee.getLastname().toLowerCase()+"@gamestore.com");
         employee.setPassword("gamestore"+ employee.getRole().name().toLowerCase());
         employeeRepository.save(employee);
-        return"redirect:/stores/store/"+storeId;
+        return "stores/storeEmployees";
     }
 }

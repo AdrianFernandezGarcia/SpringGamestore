@@ -6,6 +6,9 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
+<div class="nav" th:if="${currentEmployee != null}">
+  <span id="currentEmployee" th:text="${currentEmployee.firstname}"></span>
+</div>
 <h1>Add game to store</h1>
 <form th:action="@{/stores/store/{id}/games/save (id=${selectedStore.id})}" method="post">
   <p>Select a game:</p>
@@ -15,6 +18,5 @@
   <p>Stock Units:<input type="text" th:field="*{stock.units}"></p>
   <p><input type="submit" value="Add Game" /></p>
 </form>
-
 </body>
 </html>

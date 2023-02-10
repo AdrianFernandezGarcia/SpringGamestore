@@ -1,12 +1,15 @@
 package adfer.springapp.SpringWebApp.controller;
 
+import adfer.springapp.SpringWebApp.model.Employee;
 import adfer.springapp.SpringWebApp.model.Game;
 import adfer.springapp.SpringWebApp.model.Stock;
 import adfer.springapp.SpringWebApp.model.Store;
 import adfer.springapp.SpringWebApp.repositories.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Iterator;
 
@@ -36,25 +39,37 @@ public class GameController {
         model.addAttribute("newGame", new Game());
         model.addAttribute("platformList", platformRepository.findAll());
         model.addAttribute("publisherList", publisherRepository.findAll());
+
         return "games/newGameForm";
     }
 
     @PostMapping (value = "/games/save")
     public String saveNewGame(Game game){
         gameRepository.save(game);
-        return "redirect:/games";
+
+        return "games/list";
     }
 
     @GetMapping (value = "/stores/store/{storeId}/addGame")
-    public String showAddGameForm(Model model, @PathVariable("storeId") Long storeId){
+    public String showAddGameForm(Model model, HttpSession session, @PathVariable("storeId") Long storeId){
+        model.addAttribute("currentEmployee", (Employee) session.getAttribute("employee") );
         model.addAttribute("existingGames", gameRepository.findAll());
         model.addAttribute("selectedStore", storeRepository.findById(storeId).get());
         model.addAttribute("stock", new Stock());
+
         return "stores/addGameForm";
     }
-    //Get the selected game with @ModelAttribute (mapping it to a Game object), adding into the store list and saving it.
-    @PostMapping (value = "/stores/store/{storeId}/games/save")
-    public String addGameToStore(@PathVariable("storeId") Long storeId, @ModelAttribute("existingGames") Game selectedGame,@ModelAttribute("stock") Stock selectedStock) {
+
+    /**
+     * Saves the game to the store list and the stock for that game (if not added before)
+     *
+     * @param storeId       the id of the current store
+     * @param selectedGame  the game to be added to the store
+     * @param selectedStock the stock to be set to that game in that store
+     * @return url back to the game list
+     */
+    @PostMapping (value = "/stores/store/{storeId}/games/save")//Get the selected game with @ModelAttribute (mapping it to a Game object), adding into the store list and saving it.
+    public String addGameToStore(@PathVariable("storeId") Long storeId, @ModelAttribute("existingGames") Game selectedGame, @ModelAttribute("stock") Stock selectedStock) {
         boolean gameAdded=false;
         Store selectedStore = storeRepository.findById(storeId).get();
         Iterator<Stock> stockIterator = stockRepository.findAll().iterator();
@@ -80,7 +95,7 @@ public class GameController {
             gameRepository.save(selectedGame);
         }
 
-        return "redirect:/stores/store/" + storeId+"/games";
+        return "stores/storeGames";
     }
 
 }
