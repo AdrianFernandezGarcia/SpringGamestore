@@ -12,3 +12,8 @@ In order to execute the application the following tools are needed:
 Once the app is running on IntelliJ, just type localhost:{port} on your browser bar. The port will be provided by Spring, and I´ll be shown in the console, as it´s shown below:
 ![image](https://user-images.githubusercontent.com/48715769/219596003-2ab8a433-5d70-445e-91a6-5e30a43609d9.png)
 
+There is a default user in case you want to try the app:
+<ul> 
+<li> <b>email:</b> admin@gamestore.com </li>
+<li> <b>password:</b> admin </li>
+</ul>
