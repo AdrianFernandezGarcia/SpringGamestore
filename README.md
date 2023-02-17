@@ -6,6 +6,7 @@ In order to execute the application the following tools are needed:
 <ul> 
 <li> IntelliJ Idea </li>
 <li> Maven </li>
+<li> Java JDK 17 </li>
 </ul>
 
 Once the app is running on IntelliJ, just type localhost:{port} on your browser bar. The port will be provided by Spring, and I´ll be shown in the console, as it´s shown below:
